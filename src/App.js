@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import Phaser, { Physics } from "phaser";
+import { useState } from "react";
+import Breakout from "./scene";
+
+let game = null;
 
 function App() {
+  const [loaded, setLoaded] = useState(false)
+
+  // put in useEffect
+  if (!loaded){
+    setLoaded(true)
+    const config = {
+      type: Phaser.AUTO,
+      parent: 'phaser',
+      width: 800,
+      height: 600,
+      fps:{
+        target: 60,
+      },
+      physics: {
+        default: 'arcade',
+        arcade: {
+          gravity: {y: 0},
+          debug: false,
+        },
+      },
+      backgroundColor: "FFFFFF",
+      scene: [Breakout]
+    }
+
+    if (game === null){
+      game = new Phaser.Game(config)
+    }
+  }
+  
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          JD was here
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
     </div>
   );
 }
